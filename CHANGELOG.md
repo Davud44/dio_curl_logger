@@ -1,3 +1,9 @@
-## 0.0.1
+## 1.1.0
 
-* TODO: Describe initial release.
+* Example added
+* Description updated
+* Code formatted
+
+## 1.0.0
+
+* Package released
