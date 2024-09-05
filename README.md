@@ -1,39 +1,73 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# dio_curl_logger
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+`CurlLoggingInterceptor` is a Dio interceptor for logging HTTP requests and responses in a curl format, making it easier to debug and analyze network interactions in your applications.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Logs HTTP requests in curl format for easy debugging.
+- Pretty-prints JSON response data.
+- Configurable logging for requests and responses.
 
-## Getting started
+## Installation
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Add `curl_logging_interceptor` to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  dio_curl_logger: ^1.0.0
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+### Importing the Package
+
+To use `CurlLoggingInterceptor`, import the necessary packages in your Dart or Flutter project:
 
 ```dart
-const like = 'sample';
+import 'package:dio/dio.dart';
+import 'package:dio_curl_logger/dio_curl_logger.dart';
 ```
 
-## Additional information
+```
+final dio = Dio();
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+dio.interceptors.add(
+    CurlLoggingInterceptor(
+      showRequestLog: true, // Set to false to disable logging of HTTP requests
+      showResponseLog: true, // Set to false to disable logging of HTTP responses
+   ),
+);
+```
+
+## Example
+
+#### Request Logging
+
+When making an HTTP request, the interceptor will log the request in a curl format. Here’s an example with mock data:
+
+```text
+Request log:
+curl  -X GET  https://api.example.com/resource?param1=value1&param2=value2
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer mock_token' \
+
+Response Log:
+URL: https://api.example.com/v1/resource?param1=value1&param2=value2
+Headers:
+ content-type: application/json
+ date: Fri, 01 Jan 2024 12:00:00 GMT
+ transfer-encoding: chunked
+ server: MockServer/1.0
+
+Response Data:
+{
+    {
+        "name": "John Doe",
+        "id": "123456",
+        "description": "Sample item description",
+        "creationDate": "2024-01-01",
+        "status": "active"
+    }
+}
+====================================
