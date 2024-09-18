@@ -1,6 +1,6 @@
 name: dio_curl_logger
 description: "A Flutter package for logging Dio HTTP requests as curl commands and responses, enabling easier debugging and analysis of network interactions."
-version: 1.1.0
+version: 1.2.0
 homepage: https://github.com/Davud44/dio_curl_logger
 repository: https://github.com/Davud44/dio_curl_logger
 
