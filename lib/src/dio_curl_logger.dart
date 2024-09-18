@@ -80,6 +80,11 @@ class CurlLoggingInterceptor extends Interceptor {
     buffer.write('${response.requestOptions.uri}');
     buffer.writeln();
 
+    // Add URL
+    buffer.write('Status code: ');
+    buffer.write('${response.statusCode}');
+    buffer.writeln();
+
     // Add Headers
     buffer.writeln('Headers:');
     response.headers.forEach((key, values) {

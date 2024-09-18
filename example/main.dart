@@ -13,5 +13,9 @@ void main() async {
   );
 
   // Make a sample HTTP request
-  final response = await dio.get('https://example.com/resource');
+  try {
+    final response = await dio.get('https://google.com');
+  } on Exception {
+    print("Error occured");
+  }
 }
