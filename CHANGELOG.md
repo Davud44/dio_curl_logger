@@ -1,3 +1,8 @@
+## 1.3.0
+
+* Fixed error when logging requests with FormData / file uploads
+* FormData fields and files are now logged as curl `-F` flags
+
 ## 1.2.0
 
 * Status code added to response log

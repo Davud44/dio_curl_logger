@@ -49,9 +49,24 @@ class CurlLoggingInterceptor extends Interceptor {
 
     // Add data (POST/PUT)
     if (options.data != null) {
-      final jsonData = const JsonEncoder.withIndent('  ')
-          .convert(options.data); // Pretty-print JSON data
-      buffer.writeln('  --data \'$jsonData\' \\');
+      if (options.data is FormData) {
+        final formData = options.data as FormData;
+        for (final field in formData.fields) {
+          buffer.writeln('  -F \'${field.key}=${field.value}\' \\');
+        }
+        for (final file in formData.files) {
+          final fileName = file.value.filename ?? 'file';
+          buffer.writeln('  -F \'${file.key}=@$fileName\' \\');
+        }
+      } else {
+        try {
+          final jsonData = const JsonEncoder.withIndent('  ')
+              .convert(options.data); // Pretty-print JSON data
+          buffer.writeln('  --data \'$jsonData\' \\');
+        } catch (_) {
+          buffer.writeln('  --data \'${options.data}\' \\');
+        }
+      }
     }
 
     // Log the final result
